@@ -19,6 +19,7 @@ public class DemoApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("https://pokedex-seuha516.netlify.app/");
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000/");
 			}
 		};
 	}
