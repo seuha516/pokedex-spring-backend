@@ -9,8 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = {"https://pokedex-seuha516.netlify.app/", "http://localhost:3000/"})
@@ -70,6 +75,42 @@ public class PokemonController {
         }else {
             return new ReturnPokemon(result.get(0));
         }
+    }
+
+    @GetMapping(value="/image", produces= MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody
+    byte[] getImage(@RequestParam("value") String value) throws IOException {
+
+        FileInputStream fis = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        String fileDir = "./././././images/";
+        if(value.substring(0, 4).equals("icon")) {
+            fileDir += ("/icons/" + value + ".jpg");
+        }else if(value.substring(0, 7).equals("picture")) {
+            fileDir += ("/pictures/" + value + ".jpg");
+        }
+
+        try{
+            fis = new FileInputStream(fileDir);
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        int readCount = 0;
+        byte[] buffer = new byte[1024];
+        byte[] fileArray = null;
+
+        try{
+            while((readCount = fis.read(buffer)) != -1){
+                baos.write(buffer, 0, readCount);
+            }
+            fileArray = baos.toByteArray();
+            fis.close();
+            baos.close();
+        } catch(IOException e){
+            throw new RuntimeException("File Error");
+        }
+        return fileArray;
     }
 
 }
