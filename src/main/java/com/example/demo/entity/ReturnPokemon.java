@@ -17,6 +17,7 @@ public class ReturnPokemon {
     private final JSONObject base_stat;
     private final JSONObject types;
     private final String classification;
+    private final String color;
     private final double height;
     private final double weight;
     private final double male_rate;
@@ -27,6 +28,7 @@ public class ReturnPokemon {
         this.name_jap = p.getName_jap();
         this.name_eng = p.getName_eng();
         this.classification = p.getClassification();
+        this.color = p.getColor();
         this.height = p.getHeight();
         this.weight = p.getWeight();
         this.male_rate = p.getMale_rate();

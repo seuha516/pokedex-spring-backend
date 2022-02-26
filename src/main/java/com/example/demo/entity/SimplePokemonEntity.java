@@ -12,5 +12,7 @@ public class SimplePokemonEntity {
     @Id
     private int num_nat;
     private String name_kor;
+    private String name_jap;
+    private String name_eng;
 
 }

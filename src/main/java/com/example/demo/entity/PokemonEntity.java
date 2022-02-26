@@ -18,6 +18,7 @@ public class PokemonEntity {
     private String base_stat;
     private String types;
     private String classification;
+    private String color;
     private double height;
     private double weight;
     private double male_rate;

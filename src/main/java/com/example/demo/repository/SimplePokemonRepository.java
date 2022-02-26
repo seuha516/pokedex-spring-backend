@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEntity, Integer> {
 
-    @Query(value = "SELECT num_nat, name_kor FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
+    @Query(value = "SELECT num_nat, name_kor, name_jap, name_eng FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
             + "JSON_EXTRACT(base_stat, '$.h') >= ?5 AND JSON_EXTRACT(base_stat, '$.h') <= ?6 AND "
             + "JSON_EXTRACT(base_stat, '$.a') >= ?7 AND JSON_EXTRACT(base_stat, '$.a') <= ?8 AND "
             + "JSON_EXTRACT(base_stat, '$.b') >= ?9 AND JSON_EXTRACT(base_stat, '$.b') <= ?10 AND "
@@ -25,7 +25,7 @@ public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEnti
                                           int minTotalStat, int maxTotalStat,
                                           Pageable p);
 
-    @Query(value = "SELECT num_nat, name_kor FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
+    @Query(value = "SELECT num_nat, name_kor, name_jap, name_eng FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
             + "JSON_EXTRACT(base_stat, '$.h') >= ?5 AND JSON_EXTRACT(base_stat, '$.h') <= ?6 AND "
             + "JSON_EXTRACT(base_stat, '$.a') >= ?7 AND JSON_EXTRACT(base_stat, '$.a') <= ?8 AND "
             + "JSON_EXTRACT(base_stat, '$.b') >= ?9 AND JSON_EXTRACT(base_stat, '$.b') <= ?10 AND "
@@ -40,7 +40,7 @@ public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEnti
                                            int minTotalStat, int maxTotalStat, String type1,
                                            Pageable p);
 
-    @Query(value = "SELECT num_nat, name_kor FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
+    @Query(value = "SELECT num_nat, name_kor, name_jap, name_eng FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
             + "JSON_EXTRACT(base_stat, '$.h') >= ?5 AND JSON_EXTRACT(base_stat, '$.h') <= ?6 AND "
             + "JSON_EXTRACT(base_stat, '$.a') >= ?7 AND JSON_EXTRACT(base_stat, '$.a') <= ?8 AND "
             + "JSON_EXTRACT(base_stat, '$.b') >= ?9 AND JSON_EXTRACT(base_stat, '$.b') <= ?10 AND "

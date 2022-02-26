@@ -38,25 +38,25 @@ public class PokemonController {
                                                  @RequestParam(value = "type1", defaultValue = "") String type1,
                                                  @RequestParam(value = "type2", defaultValue = "") String type2,
 
-                                                 @RequestParam(value = "minHeight", defaultValue = "0.0") String minHeight,
+                                                 @RequestParam(value = "minHeight", defaultValue = "-1.0") String minHeight,
                                                  @RequestParam(value = "maxHeight", defaultValue = "9999.9") String maxHeight,
-                                                 @RequestParam(value = "minWeight", defaultValue = "0.0") String minWeight,
+                                                 @RequestParam(value = "minWeight", defaultValue = "-1.0") String minWeight,
                                                  @RequestParam(value = "maxWeight", defaultValue = "9999.9") String maxWeight,
 
-                                                 @RequestParam(value = "minH", defaultValue = "0") int minH,
-                                                 @RequestParam(value = "maxH", defaultValue = "999") int maxH,
-                                                 @RequestParam(value = "minA", defaultValue = "0") int minA,
-                                                 @RequestParam(value = "maxA", defaultValue = "999") int maxA,
-                                                 @RequestParam(value = "minB", defaultValue = "0") int minB,
-                                                 @RequestParam(value = "maxB", defaultValue = "999") int maxB,
-                                                 @RequestParam(value = "minC", defaultValue = "0") int minC,
-                                                 @RequestParam(value = "maxC", defaultValue = "999") int maxC,
-                                                 @RequestParam(value = "minD", defaultValue = "0") int minD,
-                                                 @RequestParam(value = "maxD", defaultValue = "999") int maxD,
-                                                 @RequestParam(value = "minS", defaultValue = "0") int minS,
-                                                 @RequestParam(value = "maxS", defaultValue = "999") int maxS,
-                                                 @RequestParam(value = "minTotalStat", defaultValue = "0") int minTotalStat,
-                                                 @RequestParam(value = "maxTotalStat", defaultValue = "999") int maxTotalStat) {
+                                                 @RequestParam(value = "minH", defaultValue = "-1") int minH,
+                                                 @RequestParam(value = "maxH", defaultValue = "9999") int maxH,
+                                                 @RequestParam(value = "minA", defaultValue = "-1") int minA,
+                                                 @RequestParam(value = "maxA", defaultValue = "9999") int maxA,
+                                                 @RequestParam(value = "minB", defaultValue = "-1") int minB,
+                                                 @RequestParam(value = "maxB", defaultValue = "9999") int maxB,
+                                                 @RequestParam(value = "minC", defaultValue = "-1") int minC,
+                                                 @RequestParam(value = "maxC", defaultValue = "9999") int maxC,
+                                                 @RequestParam(value = "minD", defaultValue = "-1") int minD,
+                                                 @RequestParam(value = "maxD", defaultValue = "9999") int maxD,
+                                                 @RequestParam(value = "minS", defaultValue = "-1") int minS,
+                                                 @RequestParam(value = "maxS", defaultValue = "9999") int maxS,
+                                                 @RequestParam(value = "minTotalStat", defaultValue = "-1") int minTotalStat,
+                                                 @RequestParam(value = "maxTotalStat", defaultValue = "9999") int maxTotalStat) {
 
         Pageable pageable;
         if(secondSort1.equals("")) {
