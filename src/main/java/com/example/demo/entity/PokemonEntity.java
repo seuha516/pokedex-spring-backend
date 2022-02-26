@@ -22,6 +22,7 @@ public class PokemonEntity {
     private double height;
     private double weight;
     private double male_rate;
+    private String explanation;
 
 }
 

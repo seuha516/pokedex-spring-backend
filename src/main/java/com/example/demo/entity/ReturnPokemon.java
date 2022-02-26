@@ -21,6 +21,7 @@ public class ReturnPokemon {
     private final double height;
     private final double weight;
     private final double male_rate;
+    private final String explanation;
 
     public ReturnPokemon(PokemonEntity p) throws ParseException {
         this.num_nat = p.getNum_nat();
@@ -32,6 +33,7 @@ public class ReturnPokemon {
         this.height = p.getHeight();
         this.weight = p.getWeight();
         this.male_rate = p.getMale_rate();
+        this.explanation = p.getExplanation();
 
         JSONParser parser = new JSONParser();
         this.base_stat = (JSONObject) parser.parse(p.getBase_stat());
