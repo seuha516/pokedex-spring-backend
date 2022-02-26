@@ -8,7 +8,9 @@ import com.example.demo.repository.SimplePokemonRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +30,19 @@ public class PokemonController {
     private final SimplePokemonRepository simplePokemonRepository;
 
     @GetMapping("/list")
-    public List<SimplePokemonEntity> listPokemon(@RequestParam(value = "sort1", defaultValue = "num_nat") String sort1,
-                                                 @RequestParam(value = "sort2", defaultValue = "ASC") String sort2,
+    public List<SimplePokemonEntity> listPokemon(@RequestParam(value = "firstSort1", defaultValue = "num_nat") String firstSort1,
+                                                 @RequestParam(value = "firstSort2", defaultValue = "ASC") String firstSort2,
+                                                 @RequestParam(value = "secondSort1", defaultValue = "") String secondSort1,
+                                                 @RequestParam(value = "secondSort2", defaultValue = "") String secondSort2,
+
                                                  @RequestParam(value = "type1", defaultValue = "") String type1,
                                                  @RequestParam(value = "type2", defaultValue = "") String type2,
+
                                                  @RequestParam(value = "minHeight", defaultValue = "0.0") String minHeight,
                                                  @RequestParam(value = "maxHeight", defaultValue = "9999.9") String maxHeight,
                                                  @RequestParam(value = "minWeight", defaultValue = "0.0") String minWeight,
                                                  @RequestParam(value = "maxWeight", defaultValue = "9999.9") String maxWeight,
+
                                                  @RequestParam(value = "minH", defaultValue = "0") int minH,
                                                  @RequestParam(value = "maxH", defaultValue = "999") int maxH,
                                                  @RequestParam(value = "minA", defaultValue = "0") int minA,
@@ -51,18 +58,44 @@ public class PokemonController {
                                                  @RequestParam(value = "minTotalStat", defaultValue = "0") int minTotalStat,
                                                  @RequestParam(value = "maxTotalStat", defaultValue = "999") int maxTotalStat) {
 
+        Pageable pageable;
+        if(secondSort1.equals("")) {
+            pageable = PageRequest.of(0,1000,firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending());
+        }else if(secondSort1.equals("height") || secondSort1.equals("weight")) {
+            pageable = PageRequest.of(0,1000,
+                    (secondSort2.equals("ASC") ? Sort.by(secondSort1) : Sort.by(secondSort1).descending()).and(
+                            firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending()
+                        )
+                    );
+        }else if((secondSort1.equals("male_rate") && secondSort2.equals("ASC")) || (secondSort1.equals("female_rate") && secondSort2.equals("DESC"))) {
+            pageable = PageRequest.of(0,1000,
+                    (JpaSort.unsafe("IF(male_rate=-1, 999, male_rate)")).and(
+                            firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending()
+                    )
+            );
+        }else if((secondSort1.equals("male_rate") && secondSort2.equals("DESC")) || (secondSort1.equals("female_rate") && secondSort2.equals("ASC"))) {
+            pageable = PageRequest.of(0,1000,
+                    (JpaSort.unsafe("IF(male_rate=-1, 999, 1-male_rate)")).and(
+                            firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending()
+                    )
+            );
+        }else {
+            pageable = PageRequest.of(0,1000,
+                    (JpaSort.unsafe((secondSort2.equals("ASC") ? "-1 * " : "1 * ") + "base_stat -> '$." + secondSort1 + "'")).and(
+                            firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending()
+                    )
+            );
+        }
+
         if (type1.equals("")) {
             return simplePokemonRepository.listPokemon0(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat,
-                    PageRequest.of(0,1000,sort2.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort1));
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, pageable);
         }else if (type2.equals("")) {
             return simplePokemonRepository.listPokemon1(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1,
-                    PageRequest.of(0,1000,sort2.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort1));
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1, pageable);
         }else{
             return simplePokemonRepository.listPokemon2(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1, type2,
-                    PageRequest.of(0,1000,sort2.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort1));
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1, type2, pageable);
         }
 
     }
