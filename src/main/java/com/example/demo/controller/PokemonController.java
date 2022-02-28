@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
-public class    PokemonController {
+public class PokemonController {
 
     private final PokemonRepository pokemonRepository;
     private final SimplePokemonRepository simplePokemonRepository;
