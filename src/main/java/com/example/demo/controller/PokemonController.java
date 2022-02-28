@@ -81,7 +81,7 @@ public class PokemonController {
             );
         }else {
             pageable = PageRequest.of(0,1000,
-                    (JpaSort.unsafe((secondSort2.equals("ASC") ? "-1 * " : "1 * ") + "base_stat -> '$." + secondSort1 + "'")).and(
+                    (JpaSort.unsafe((secondSort2.equals("ASC") ? "1 * " : "-1 * ") + "base_stat -> '$." + secondSort1 + "'")).and(
                             firstSort2.equals("ASC") ? Sort.by(firstSort1) : Sort.by(firstSort1).descending()
                     )
             );
