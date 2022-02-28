@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
-public class PokemonController {
+public class    PokemonController {
 
     private final PokemonRepository pokemonRepository;
     private final SimplePokemonRepository simplePokemonRepository;
@@ -55,8 +55,8 @@ public class PokemonController {
                                                  @RequestParam(value = "maxD", defaultValue = "9999") int maxD,
                                                  @RequestParam(value = "minS", defaultValue = "-1") int minS,
                                                  @RequestParam(value = "maxS", defaultValue = "9999") int maxS,
-                                                 @RequestParam(value = "minTotalStat", defaultValue = "-1") int minTotalStat,
-                                                 @RequestParam(value = "maxTotalStat", defaultValue = "9999") int maxTotalStat) {
+                                                 @RequestParam(value = "minTotal", defaultValue = "-1") int minTotal,
+                                                 @RequestParam(value = "maxTotal", defaultValue = "9999") int maxTotal) {
 
         Pageable pageable;
         if(secondSort1.equals("")) {
@@ -89,13 +89,13 @@ public class PokemonController {
 
         if (type1.equals("")) {
             return simplePokemonRepository.listPokemon0(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, pageable);
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotal, maxTotal, pageable);
         }else if (type2.equals("")) {
             return simplePokemonRepository.listPokemon1(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1, pageable);
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotal, maxTotal, type1, pageable);
         }else{
             return simplePokemonRepository.listPokemon2(minHeight, maxHeight, minWeight, maxWeight,
-                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotalStat, maxTotalStat, type1, type2, pageable);
+                    minH, maxH, minA, maxA, minB, maxB, minC, maxC, minD, maxD, minS, maxS, minTotal, maxTotal, type1, type2, pageable);
         }
 
     }

@@ -22,7 +22,7 @@ public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEnti
             nativeQuery = true)
     List<SimplePokemonEntity> listPokemon0(String minHeight, String maxHeight, String minWeight, String maxWeight,
                                           int minH, int maxH, int minA, int maxA, int minB, int maxB, int minC, int maxC, int minD, int maxD, int minS, int maxS,
-                                          int minTotalStat, int maxTotalStat,
+                                          int minTotal, int maxTotal,
                                           Pageable p);
 
     @Query(value = "SELECT num_nat, name_kor, name_jap, name_eng FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
@@ -37,7 +37,7 @@ public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEnti
             nativeQuery = true)
     List<SimplePokemonEntity> listPokemon1(String minHeight, String maxHeight, String minWeight, String maxWeight,
                                            int minH, int maxH, int minA, int maxA, int minB, int maxB, int minC, int maxC, int minD, int maxD, int minS, int maxS,
-                                           int minTotalStat, int maxTotalStat, String type1,
+                                           int minTotal, int maxTotal, String type1,
                                            Pageable p);
 
     @Query(value = "SELECT num_nat, name_kor, name_jap, name_eng FROM pokemon WHERE height >= ?1 AND height <= ?2 AND weight >= ?3 AND weight <= ?4 AND "
@@ -52,7 +52,7 @@ public interface SimplePokemonRepository extends JpaRepository<SimplePokemonEnti
             nativeQuery = true)
     List<SimplePokemonEntity> listPokemon2(String minHeight, String maxHeight, String minWeight, String maxWeight,
                                            int minH, int maxH, int minA, int maxA, int minB, int maxB, int minC, int maxC, int minD, int maxD, int minS, int maxS,
-                                           int minTotalStat, int maxTotalStat, String type1, String type2,
+                                           int minTotal, int maxTotal, String type1, String type2,
                                            Pageable p);
 
 }
