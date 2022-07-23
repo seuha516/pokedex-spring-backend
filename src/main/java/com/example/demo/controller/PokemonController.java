@@ -116,7 +116,7 @@ public class PokemonController {
 
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        String fileDir = "./././././images/";
+        String fileDir = "/home/jeon/Server/pokedex/images/";
         if(value.substring(0, 4).equals("icon")) {
             fileDir += ("/icons/" + value + ".jpg");
         }else if(value.substring(0, 7).equals("picture")) {
